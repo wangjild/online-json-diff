@@ -1,7 +1,10 @@
+[Unit]
+Description=online json diff service
+
 [Service]
-ExecStart=cd /opt/tiger/sre/online-json-diff && npm start
+ExecStart=/usr/local/bin/npm start
 Restart=always
-ExecStop=kill $MAINPID
+WorkingDirectory=/opt/tiger/sre/online-json-diff
 KillMode=control-group
 KillSignal=INT
 
