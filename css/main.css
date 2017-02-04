@@ -194,7 +194,7 @@ h2 {
 }
 
 .diff-inputs {
-  width: calc(100% - 200px);
+  width: 100%;
   float: left;
   height: calc(100% - 48px);
 }

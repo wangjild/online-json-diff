@@ -201,10 +201,37 @@
   }
 
   BackboneEvents.mixin(JsonInputView.prototype);
-  var currentDiff = localStorage.getItem('current-diff') && JSON.parse(localStorage.getItem('current-diff'));
 
-  var leftInputView = new JsonInputView(document.getElementById('json-diff-left'), currentDiff && currentDiff.left);
-  var rightInputView = new JsonInputView(document.getElementById('json-diff-right'), currentDiff && currentDiff.right);
+  var uri = new URI();
+  var search = uri.search(true);
+
+  var left = undefined;
+  var right = undefined;
+
+  $.get('diff_result/' + decodeURIComponent(search.left)).done(
+      function(data) {
+        left = data
+      }
+  ).fail(
+      function (data) {
+        alert('获取diff结果失败，请检查参数是否正确');
+      }
+  );
+
+  $.get('diff/' + decodeURIComponent(search.right)).done(
+      function(data) {
+          right = data
+      }
+  ).fail(
+      function (data) {
+          alert('获取diff结果失败，请检查参数是否正确');
+      }
+  );
+
+  // var currentDiff = localStorage.getItem('current-diff') && JSON.parse(localStorage.getItem('current-diff'));
+
+  var leftInputView = new JsonInputView(document.getElementById('json-diff-left'), left);
+  var rightInputView = new JsonInputView(document.getElementById('json-diff-right'), right);
   leftInputView.on('change', onInputChange);
   rightInputView.on('change', onInputChange);
   leftInputView.codemirror.on('scroll', function () {
@@ -267,7 +294,9 @@
       localStorage.setItem('current-diff', currentDiff);
     }
   }
+
   var debouncedSaveHistory = _.debounce(saveHistory, 5000);
+
   function saveHistory() {
     if (dontTriggerSaveDiff) {
       dontTriggerSaveDiff = false;
