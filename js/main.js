@@ -208,25 +208,31 @@
   var left = undefined;
   var right = undefined;
 
-  $.get('diff_result/' + decodeURIComponent(search.offline)).done(
-      function(data) {
-        left = data
-      }
-  ).fail(
-      function (data) {
-        alert('获取diff结果失败，请检查参数是否正确');
-      }
-  );
-
-  $.get('diff_result/' + decodeURIComponent(search.online)).done(
-      function(data) {
-          right = data
-      }
-  ).fail(
-      function (data) {
+  $.ajax({
+      async: false,
+      type: 'GET',
+      url: 'diff_result/' + decodeURIComponent(search.offline),
+      dataType: 'text',
+      success: function (data) {
+          left = data;
+      },
+      fail: function (data) {
           alert('获取diff结果失败，请检查参数是否正确');
       }
-  );
+  });
+
+  $.ajax({
+      async: false,
+      type: 'GET',
+      url: 'diff_result/' + decodeURIComponent(search.online),
+      dataType: 'text',
+      success: function (data) {
+          right = data;
+      },
+      fail: function (data) {
+          alert('获取diff结果失败，请检查参数是否正确');
+      }
+  });
 
   // var currentDiff = localStorage.getItem('current-diff') && JSON.parse(localStorage.getItem('current-diff'));
 
