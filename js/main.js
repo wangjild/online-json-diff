@@ -208,7 +208,7 @@
   var left = undefined;
   var right = undefined;
 
-  $.get('diff_result/' + decodeURIComponent(search.left)).done(
+  $.get('diff_result/' + decodeURIComponent(search.offline)).done(
       function(data) {
         left = data
       }
@@ -218,7 +218,7 @@
       }
   );
 
-  $.get('diff_result/' + decodeURIComponent(search.right)).done(
+  $.get('diff_result/' + decodeURIComponent(search.online)).done(
       function(data) {
           right = data
       }
