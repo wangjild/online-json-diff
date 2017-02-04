@@ -1,0 +1,9 @@
+[Service]
+ExecStart=cd /opt/tiger/sre/online-json-diff && npm start
+Restart=always
+ExecStop=kill $MAINPID
+KillMode=control-group
+KillSignal=INT
+
+[Install]
+WantedBy=default.target
