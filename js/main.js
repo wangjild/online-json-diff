@@ -218,7 +218,7 @@
       }
   );
 
-  $.get('diff/' + decodeURIComponent(search.right)).done(
+  $.get('diff_result/' + decodeURIComponent(search.right)).done(
       function(data) {
           right = data
       }
@@ -243,7 +243,7 @@
     leftInputView.codemirror.scrollTo(scrollInfo.left, scrollInfo.top);
   });
 
-  if (currentDiff) {
+  if (left && right) {
     compareJson();
   }
 
